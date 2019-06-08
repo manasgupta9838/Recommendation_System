@@ -1,0 +1,115 @@
+{% extends 'layouts/basetheme.html' %}
+{% block js %}
+    <script>
+        function showcontent() {
+            let url = '/fetch_request?content=' + $('#content').val();
+            console.log(url);
+            $('.cover').fadeIn('fast');
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (data) {
+                    console.log(data.success);
+                    $('.cover').fadeOut('fast', function (e) {
+
+                        msg = data.success;
+                        subject = '<li class="list-group-item"><div class="card"><div class="card-body">' + msg + '</div></div></li>';
+                        htmltable = data.datatable;
+                        console.log(data.datatable);
+                        $("#result").html(htmltable);
+                        $('.dataframe').addClass('table table-bordered table-hovered table-responsive')
+                        $('.recommend').attr('href', '/recommend?file=' + data.file)
+                    });
+                },
+                error: function (error) {
+                    alert(error);
+                    $('.cover').fadeOut('fast');
+                }
+            });
+
+        }
+
+        function cancelextract() {
+            $('.cover').fadeOut('fast');
+        }
+    </script>
+{% endblock %}
+
+{% block container %}
+    <div class="container">
+        <div class="jumbotron">
+            <div class="form-group">
+                <h1><span>Your Recommendations</span></h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table>
+                    {% for key,value in p.iterrows() %}
+                        <tr>
+                            <th>{{ value['title'] }}"</th>
+                            <td><a class="btn btn-danger" target="_blank" href="{{ value['link'] }}">Buy Now</a></td>
+                        </tr>
+                    {% endfor %}
+                    {% for key,value in rv.iterrows() %}
+                        <tr>
+                            <th>{{ value['title'] }}"</th>
+                            <td><a target="_blank" href="{{ value['link'] }}" class="btn btn-danger">Buy Now</a></td>
+                        </tr>
+                    {% endfor %}
+                    {% if bd %}
+                        {% if bd.size >0 %}
+                            {% for key,value in bd.iterrows() %}
+                                <tr>
+                                    <th>{{ value['title'] }}"</th>
+                                    <td><a target="_blank" href="{{ value['link'] }}" class="btn btn-danger">Buy Now</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <hr>
+                        {% endif %}
+                    {% endif %}
+
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/css_loader.css">
+    <style>
+        .form-group {
+            width: 30vh;
+
+        }
+
+        .cover {
+            display: none;
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(116, 112, 119, 0.55);
+            left: 0;
+            top: 0;
+        }
+
+        .area {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -35%);
+        }
+
+        .area > button, .area > .lds-roller {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+        }
+    </style>
+{% endblock %}

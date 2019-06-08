@@ -1,0 +1,89 @@
+{% extends 'layouts/basetheme.html' %}
+{% block css %}
+    <style>
+        .main {
+            padding: 40px 0;
+        }
+        .main input,
+        .main input::-webkit-input-placeholder {
+            font-size: 20px;
+            padding-top: 3px;
+        }
+        .main-center{
+            margin-top: 40px;
+            margin: 0 auto;
+            max-width: 500px;
+            padding: 10px 23px;
+            background:#66baa2;
+            color: #0b2e13;
+            text-shadow: none;
+            -webkit-box-shadow: 0 3px 5px 0 rgba(0,0,0,0.31);
+            -moz-box-shadow: 0 3px 5px 0 rgba(0,0,0,0.31);
+            box-shadow: 0 3px 15px 0 rgba(0,0,0,0.31);
+        }
+        span.input-group-addon i {
+            color: #009edf;
+            font-size: 17px;
+        }
+    </style>
+{% endblock %}
+
+{% block container %}
+
+<body>
+	<div class="container">
+			<div class="main">
+				<div class="main-center" style="padding-bottom: 30px;">
+				<h3 style="padding-left: 100px;font-size: 1.5em;margin-bottom: 27px;">Preferences</h3>
+					<form method="post">
+
+						<div class="form-group" style="padding-bottom: 15px;padding-left: 30px;">
+							<label for="price">1. Price should be cheaper : </label>
+								<div class="input-group">
+									<input type="radio" name="price" id="price" value="yes" > Yes<br>
+                                    <input type="radio" name="price" id="price" value="no"> No<br>
+							</div>
+						</div>
+
+						<div class="form-group" style="padding-bottom: 15px;padding-left: 30px;">
+							<label for="brand">2. Does Brand Matters : </label>
+								<div class="input-group">
+									<input type="radio" name="brand" id="brand" value="yes" > Yes<br>
+                                    <input type="radio" name="brand" id="brand" value="no"> No<br>
+							</div>
+						</div>
+
+                        <div class="form-group" style="padding-bottom: 15px;padding-left: 30px;">
+							<label for="brands">3. Please give name of some brands : </label>
+								<div class="input-group">
+                                    <input type="text" aria-rowspan="3" aria-colspan="30" name="brands" id="brands" placeholder="Armani,Nike,Lavie,Gucci,Vero Moda,etc." style="color: #1a1352;width: 200px;margin-left: 15px;height: 27.99306px;" >
+                                </div>
+						</div>
+
+						<div class="form-group" style="padding-bottom: 15px;padding-left: 30px;">
+                            <label for="rating">4. Minimum rating to prefer (between 1 and 5): </label>
+								<div class="input-group">
+									<input type="number" name="rating" id="rating" min="1" max="5" style="margin-left: 15px;height: 27.99306px;color: #1a1352;"><br>
+								</div>
+						</div>
+
+                        <div class="form-group" style="padding-bottom: 15px;padding-left: 30px;">
+							<label for="review">5. Does review matter : </label><br>
+								<div class="input-group">
+									<input type="radio" name="review" id="review" value="yes" > Yes<br>
+                                    <input type="radio" name="review" id="review" value="no"> No<br>
+								</div>
+						</div>
+
+				<button type="submit" style="margin-left: 100px;box-shadow: 4px 5px 10px 1px #222;color: #0b560e;text-shadow: 3px 2px 6px black;">SUBMIT</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+</body>
+{% endblock %}
+
+{% block js %}
+    <script src="static/js/myScript.js"></script>
+{% endblock %}

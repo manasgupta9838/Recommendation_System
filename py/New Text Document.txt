@@ -1,0 +1,36 @@
+import scrapy
+import numpy as np
+
+
+class ProductSpider(scrapy.Spider):
+    name = 'productscraper'
+    start_urls = [
+        'https://www.amazon.in/Pigeon-Stovekraft-Plastic-Chopper-Blades/dp/B074S7XLPY/ref=br_msw_pdt-2?_encoding=UTF8&smid=AT95IG9ONZD7S&pf_rd_m=A1VBAL9TL5WCBF&pf_rd_s=&pf_rd_r=RS0H0QGTF3NR8GGZQZZH&pf_rd_t=36701&pf_rd_p=455e46ee-5d1d-4709-ad32-c7ff55a0896f&pf_rd_i=desktop']
+
+    def parse(self, response):
+        title = response.css("#productTitle::text").extract_first().replace('\n','').strip()
+        company = response.css("#bylineInfo::text").extract_first()
+        try:
+            rating = response.css("#acrPopover::attr(title)").extract_first().split()[0]
+            rating = float(rating)
+        except Exception as e:
+            rating = np.nan
+        try:
+            reviews = response.css("#acrCustomerReviewText::text").extract_first().split()[0]
+            reviews = reviews.replace(',', '')
+            reviews = int(reviews)
+        except Exception as e:
+            reviews = np.nan
+        try:
+            price = response.css('#priceblock_ourprice::text').extract_first()
+            price = float(price)
+        except Exception as e:
+            price = np.nan
+
+        yield {
+            'title':title,
+            'price' : price,
+            'reviews' : reviews,
+            'rating' : rating,
+            'company':company,
+        }

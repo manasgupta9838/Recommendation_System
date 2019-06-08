@@ -1,0 +1,162 @@
+
+{% extends 'layouts/basetheme.html' %}
+{% block js %}
+    <script>
+        function showcontent() {
+            let url = '/fetch_request_fast?content=' + $('#content').val();
+            console.log(url);
+            $('.cover').fadeIn('fast');
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (data) {
+                    console.log(data.success);
+                    $('.cover').fadeOut('fast', function (e) {
+
+                        msg = data.success;
+                        subject = '<li class="list-group-item"><div class="card"><div class="card-body">' + msg + '</div></div></li>';
+                        htmltable = data.datatable;
+                        console.log(data.datatable);
+                        $("#result").html(htmltable);
+                        $('.dataframe').addClass('table table-bordered table-hovered table-responsive')
+                        $('.recommend').attr('href','/recommend?file='+data.file)
+                    });
+                },
+                error: function (error) {
+                    alert(error);
+                    $('.cover').fadeOut('fast');
+                }
+            });
+
+        }
+
+        function cancelextract() {
+            $('.cover').fadeOut('fast');
+        }
+    </script>
+{% endblock %}
+
+{% block container %}
+    <div ="container-fluid p-4" style= "background: rgba(0, 0, 0, 0)">
+    <h1><span>Recommendation Engine</span></h1>
+    <img src="/static/images/Branding.png" height="300px" width="50%" style="vertical-align: middle">
+
+
+    <div class="container">
+        <div class="jumbotron">
+            <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Search Your Items</label>
+                <input type="text" class="form-control" placeholder="Search..." id="content">
+            </div>
+            <button class="btn btn-primary" onclick="showcontent()">Get Data</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-block btn-primary recommend" href="">Recommend now</a>
+            </div>
+            <div class="col-md-12" id="result">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="cover">
+        <div class="area">
+            <div class="badge badge-success p-3">
+                Fetching Data...
+            </div>
+            <br>
+            <br>
+            <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <br>
+            <br>
+            <button class="btn btn-outline-danger " onclick="cancelextract()">Cancel</button>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet">
+    <style>
+        .form-group {
+            width: 30vh;
+
+        }
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+
+        }
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 51px;
+            height: 51px;
+            margin: 6px;
+            border: 6px solid #fff;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #fff transparent transparent transparent;
+        }
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+        .cover {
+            display: none;
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(116, 112, 119, 0.55);
+            left: 0;
+            top: 0;
+        }
+
+        .area {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -35%);
+        }
+
+
+
+        .area > button, .area > .lds-ring {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+        }
+    </style>
+{% endblock %}

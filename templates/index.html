@@ -1,0 +1,61 @@
+{% extends 'layouts/basetheme.html' %}
+{% block css %}
+    <style>
+        body {
+            background-image: url("/static/images/bg.png");
+            background-repeat:repeat;
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 3rem;
+            width: 50%;
+            color: #fff1d4;
+            text-shadow: 0 3px 3px #000;
+        }
+
+        h2 {
+            font-family: Calibri;
+            color: red;
+            font-style: normal;
+        }
+
+        p {
+            font-family: Calibri;
+            font-size: large;
+            color: #d3d9df;
+            font-style: normal;
+        }
+    </style>
+{% endblock %}
+{% block container %}
+    <div class="container-fluid p-4" style="background: rgba(0,0,0,0.7)">
+        <h1><span>Machine Learning</span> based <span>Recommendation Engine</span></h1>
+        <img src="/static/images/Branding.png" height="300px" width="50%" style="vertical-align: middle">
+
+            <h2 class="mt-4">Recommendation System</h2>
+            <img src="/static/images/3.png" width="50%" height="50%" style="float: right">
+            <p>Recommendation systems are changing from novelties used by a few E-commerce<br>
+                sites, to serious business tools that are re-shaping the world of E-commerce.<br>
+                Many of the largest commerce Web sites are already using recommender systems<br>
+                to help their customers find products to purchase.<br>
+                A recommender system learns from a customer and recommends products that she will<br>
+                find most valuable from among the available products<br><br><br><br><br><br><br><br><br><br><br><br>
+
+            </p>
+        <p>
+        <div class="container-fluid">
+         <h2 class="mt-4">Machine Learning</h2>
+            <p >Machine learning is the idea that there are generic algorithms that can tell you something interesting<br>
+            about a set of data without you having to write any custom code specific to the problem. Instead of<br>
+            writing code, you feed data to the generic algorithm and it builds its own logic based on the data.
+             <img src="/static/images/4.png" style="float: right"><br>
+            <br>
+            </p>
+
+        </div>
+
+
+
+    </main>
+{% endblock %}
